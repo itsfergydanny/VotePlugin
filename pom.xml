@@ -75,5 +75,12 @@
             <artifactId>HikariCP</artifactId>
             <version>3.4.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.dnyferguson</groupId>
+            <artifactId>MomentoUserCache</artifactId>
+            <version>Release</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/MomentoUserCache-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>

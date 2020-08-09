@@ -33,6 +33,7 @@ public class MySQL {
     }
 
     private void createTables(String db) {
+        executeStatementAsync("");
     }
 
     public void getResultAsync(String stmt, FindResultCallback callback) {

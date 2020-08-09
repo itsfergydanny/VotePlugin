@@ -4,13 +4,9 @@ import com.dnyferguson.voteplugin.VotePlugin;
 import com.dnyferguson.voteplugin.utils.Chat;
 import com.dnyferguson.voteplugin.utils.Config;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class VotePartyHandler {
