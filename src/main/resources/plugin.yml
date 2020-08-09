@@ -1,0 +1,7 @@
+name: VotePlugin
+version: ${project.version}
+main: com.dnyferguson.voteplugin.VotePlugin
+commands:
+  vote:
+  voteparty:
+    aliases: ['vp']

@@ -1,0 +1,47 @@
+# MySQL Credentials
+mysql:
+  ip: 'localhost'
+  port: '3306'
+  user: 'user'
+  pass: 'pass'
+  db: 'VotePlugin'
+  max-connections: 2
+
+# What do you want to come up in chat when users run the /vote command.
+#
+# Available placeholders:
+# {voteparty_current} => current amount of votes for the voteparty
+# {voteparty_required} => amount of votes required for voteparty
+# {voteparty_missing} => amount of votes missing for voteparty
+voteCommand:
+  - '&aVote for rewards:'
+  - '&eRewards:'
+  - '&7- $10,000'
+  - '&7- 1x Vote Crate Key'
+  - ' '
+  - '&eLinks:'
+  - '&7#1- link1.com/vote'
+  - '&7#2- link2.com/vote'
+  - '&7#3- link3.com/vote'
+  - ' '
+  - '&eVoteParty in {voteparty_missing} votes!'
+
+# VoteParty settings
+voteParty:
+  enabled: true
+  votesRequired: 200
+  announcement:
+    - '                 &4&lAttention'
+    - '   &cA vote party is starting in 30 seconds. Please make space'
+    - '   &cin your inventory!'
+  # A delay in seconds before the commands start executing
+  delay: 30
+  global-commands:
+    - 'crate giveall Rare 1'
+  # Available placeholders:
+  # %player% => player name
+  # %player_uuid% => player uuid
+  per-player-commands:
+    - 'eco give %player% 10000'
+  concluded:
+    - '&4The vote party has concluded!'
