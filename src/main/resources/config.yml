@@ -26,6 +26,20 @@ voteCommand:
   - ' '
   - '&eVoteParty in {voteparty_missing} votes!'
 
+# Here you can use [msg] to send the player a message. For example '[msg] &aThanks for voting!'
+# You can also use [broadcast] to broadcast a message to the entire server. For example '[broadcast] %player% has voted and received awesome rewards! Use /vote now!'
+#
+# Available placeholders:
+# %player% => player name
+# %player_uuid% => player uuid (only works when online-only is set to true)
+voteRewards:
+  online-only: true
+  rewards:
+  - '[broadcast]&7[&eVote&7] &6%player% &ehas voted and received awesome rewards! &7(/vote)'
+  - '[msg]&aThanks for voting and helping the server grow! Here are your rewards!'
+  - 'crate give %player% Vote 1'
+  - 'eco give %player% 10000'
+
 # VoteParty settings
 voteParty:
   enabled: true

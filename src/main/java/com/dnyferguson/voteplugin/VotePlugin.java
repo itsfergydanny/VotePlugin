@@ -3,9 +3,11 @@ package com.dnyferguson.voteplugin;
 import com.dnyferguson.momentousercache.MomentoUserCache;
 import com.dnyferguson.voteplugin.commands.VoteCommand;
 import com.dnyferguson.voteplugin.commands.VotePartyCommand;
+import com.dnyferguson.voteplugin.listeners.PlayerVoteListener;
 import com.dnyferguson.voteplugin.mysql.MySQL;
 import com.dnyferguson.voteplugin.voteparty.VotePartyHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class VotePlugin extends JavaPlugin {
@@ -26,6 +28,9 @@ public final class VotePlugin extends JavaPlugin {
         }
 
         getCommand("vote").setExecutor(new VoteCommand(this));
+
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new PlayerVoteListener(this), this);
 
         /*
 

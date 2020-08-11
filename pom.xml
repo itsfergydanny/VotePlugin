@@ -82,5 +82,12 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/MomentoUserCache-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.vexsoftware</groupId>
+            <artifactId>votifier</artifactId>
+            <version>1.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/votifier-1.9.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
