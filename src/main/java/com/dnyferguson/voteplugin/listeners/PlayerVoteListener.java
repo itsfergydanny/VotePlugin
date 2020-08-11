@@ -41,13 +41,13 @@ public class PlayerVoteListener implements Listener {
 
             for (String command : commands) {
                 if (command.startsWith("[msg]")) {
-                    player.sendMessage(Chat.format(command.split("\\[msg]")[1]));
+                    player.sendMessage(Chat.format(command.split("\\[msg]")[1].replace("%player%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString())));
                     continue;
                 }
 
                 if (command.startsWith("[broadcast]")) {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.sendMessage(Chat.format(command.split("\\[broadcast]")[1]));
+                        p.sendMessage(Chat.format(command.split("\\[broadcast]")[1].replace("%player%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString())));
                     }
                     continue;
                 }
@@ -66,7 +66,7 @@ public class PlayerVoteListener implements Listener {
 
             if (command.startsWith("[broadcast]")) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendMessage(Chat.format(command.split("\\[broadcast]")[1]));
+                    p.sendMessage(Chat.format(command.split("\\[broadcast]")[1].replace("%player%", ign)));
                 }
                 continue;
             }

@@ -1,6 +1,7 @@
 package com.dnyferguson.voteplugin;
 
 import com.dnyferguson.momentousercache.MomentoUserCache;
+import com.dnyferguson.voteplugin.commands.FakeVoteCommand;
 import com.dnyferguson.voteplugin.commands.VoteCommand;
 import com.dnyferguson.voteplugin.commands.VotePartyCommand;
 import com.dnyferguson.voteplugin.listeners.PlayerVoteListener;
@@ -28,6 +29,7 @@ public final class VotePlugin extends JavaPlugin {
         }
 
         getCommand("vote").setExecutor(new VoteCommand(this));
+        getCommand("fakevote").setExecutor(new FakeVoteCommand());
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerVoteListener(this), this);
