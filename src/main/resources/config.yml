@@ -80,3 +80,52 @@ voteReminder:
     - '     &7(Please vote (/vote) to get rid of this message)'
     - ' '
     - '&6&m-----------------------------------------------&f'
+
+# Whether or not /voteshop is enabled. A shop that uses vote tokens as currency.
+voteShop:
+  enabled: true
+  invSize: 27
+  invName: '&e&lVote Shop'
+  fill: true
+  fillItem:
+    item: STAINED_GLASS_PANE
+    data: 15
+    amount: 1
+    name: ' '
+  items:
+    1:
+      slot: 10
+      cost: 10
+      displayItem:
+        item: TRIPWIRE_HOOK
+        data: 0
+        amount: 1
+        name: '&eVote Crate'
+        lore:
+          - 'use at warp crates'
+      commands:
+        - 'crate give %player% Vote 1'
+    2:
+      slot: 11
+      cost: 25
+      displayItem:
+        item: TRIPWIRE_HOOK
+        data: 0
+        amount: 1
+        name: '&eCommon Crate'
+        lore:
+          - 'use at warp crates'
+      commands:
+        - 'crate give %player% Common 1'
+    3:
+      slot: 12
+      cost: 50
+      displayItem:
+        item: TRIPWIRE_HOOK
+        data: 0
+        amount: 1
+        name: '&eRare Crate'
+        lore:
+          - 'use at warp crates'
+      commands:
+        - 'crate give %player% Rare 1'

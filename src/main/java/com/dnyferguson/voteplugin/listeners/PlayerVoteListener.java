@@ -141,7 +141,7 @@ public class PlayerVoteListener implements Listener {
             @Override
             public void onQueryDone(ResultSet result) throws SQLException {
                 if (result.next()) {
-                    int current = result.getInt("tokens");
+                    int current = plugin.getVoteTokens().getOrDefault(uuid, 0);
                     plugin.getSql().executeStatementAsync("UPDATE `tokens` SET `tokens`='" + (current + tokensPerVote) + "' WHERE `uuid` = '" + uuid + "'");
                     plugin.getVoteTokens().put(uuid, (current + tokensPerVote));
                 } else {
