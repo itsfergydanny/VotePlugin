@@ -63,6 +63,7 @@ public class PlayerVoteListener implements Listener {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()));
             }
 
+            incrementVoteParty();
             addToken(player.getUniqueId());
             plugin.getLogger().log(Level.INFO, "[Online] Player " + ign + "(" + address + ") has just voted on " + service + "!");
             return;
@@ -83,8 +84,15 @@ public class PlayerVoteListener implements Listener {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", ign));
         }
 
+        incrementVoteParty();
         addToken(ign);
         plugin.getLogger().log(Level.INFO, "[Offline] Player " + ign + "(" + address + ") has just voted on " + service + "!");
+    }
+
+    private void incrementVoteParty() {
+        if (plugin.getVotePartyHandler() != null) {
+            plugin.getVotePartyHandler().increment();
+        }
     }
 
     private void addToken(String ign) {
@@ -111,8 +119,10 @@ public class PlayerVoteListener implements Listener {
                 if (result.next()) {
                     int current = result.getInt("tokens");
                     plugin.getSql().executeStatementAsync("UPDATE `tokens` SET `tokens`='" + (current + tokensPerVote) + "' WHERE `uuid` = '" + uuid + "'");
+                    plugin.getVoteTokens().put(uuid, (current + tokensPerVote));
                 } else {
                     plugin.getSql().executeStatementAsync("INSERT INTO `tokens` (`id`, `uuid`, `tokens`) VALUES (NULL, '" + uuid + "', '" + tokensPerVote + "')");
+                    plugin.getVoteTokens().put(uuid, tokensPerVote);
                 }
             }
         });
