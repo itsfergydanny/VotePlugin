@@ -33,7 +33,7 @@ public class MySQL {
     }
 
     private void createTables(String db) {
-        executeStatementAsync("");
+        executeStatementAsync("CREATE TABLE IF NOT EXISTS `" + db + "`.`tokens` ( `id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `tokens` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
     public void getResultAsync(String stmt, FindResultCallback callback) {

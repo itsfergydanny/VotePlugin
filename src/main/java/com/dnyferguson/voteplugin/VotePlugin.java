@@ -37,13 +37,11 @@ public final class VotePlugin extends JavaPlugin {
         /*
 
         TODO:
-            * Add /fakevote command
-            * Add token system (X token per vote) then u can trade tokens for things in a GUI
+            * Add token system (X token per vote) then u can trade tokens for things in a GUI (/voteshop)
             * Add lastvoted table and remind people as soon as they can vote again per link
             * Replace whatever momento used for voteminders for this
             * hook into placeholderapi to provide voteparty & vote token placeholders
             * replace momento voteparty + vote listener for this
-            * add vote listening
 
          */
     }

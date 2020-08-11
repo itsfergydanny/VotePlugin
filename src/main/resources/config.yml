@@ -59,3 +59,8 @@ voteParty:
     - 'eco give %player% 10000'
   concluded:
     - '&4The vote party has concluded!'
+
+# Vote Token System
+voteTokens:
+  enabled: true
+  tokensPerVote: 1
