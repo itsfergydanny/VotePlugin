@@ -8,6 +8,7 @@ import com.dnyferguson.voteplugin.hooks.VotePluginExpansion;
 import com.dnyferguson.voteplugin.listeners.PlayerVoteListener;
 import com.dnyferguson.voteplugin.mysql.FindResultCallback;
 import com.dnyferguson.voteplugin.mysql.MySQL;
+import com.dnyferguson.voteplugin.tasks.CheckLastVotedTask;
 import com.dnyferguson.voteplugin.voteparty.VotePartyHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -56,11 +57,12 @@ public final class VotePlugin extends JavaPlugin {
             new VotePluginExpansion(this).register();
         }
 
+        new CheckLastVotedTask(this);
+
         /*
 
         TODO:
             * then u can trade tokens for things in a GUI (/voteshop)
-            * Add lastvoted table and remind people as soon as they can vote again per link
             * Replace whatever momento used for voteminders for this
             * replace momento voteparty + vote listener for this
 

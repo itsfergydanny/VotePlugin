@@ -45,9 +45,13 @@ voteParty:
   enabled: true
   votesRequired: 200
   announcement:
-    - '                 &4&lAttention'
-    - '   &cA vote party is starting in 30 seconds. Please make space'
-    - '   &cin your inventory!'
+    - '&4&m-----------------------------------------------&f'
+    - ' '
+    - '                             &4&lAttention'
+    - '         &cA Vote Party is starting in 30 seconds!'
+    - '                Make space in your inventory!&c'
+    - ' '
+    - '&4&m-----------------------------------------------&f'
   # A delay in seconds before the commands start executing
   delay: 30
   global-commands:
@@ -64,3 +68,15 @@ voteParty:
 voteTokens:
   enabled: true
   tokensPerVote: 1
+
+# Whether or not to remind users they havent voted in the last 24h. The plugin checks every 5 minutes.
+voteReminder:
+  enabled: true
+  message:
+    - '&6&m-----------------------------------------------&f'
+    - ' '
+    - '                             &6&lReminder'
+    - '         &eYou haven''t voted in the last 24 hours'
+    - '     &7(Please vote (/vote) to get rid of this message)'
+    - ' '
+    - '&6&m-----------------------------------------------&f'

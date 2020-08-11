@@ -65,6 +65,7 @@ public class PlayerVoteListener implements Listener {
 
             incrementVoteParty();
             addToken(player.getUniqueId());
+            setLastVoted(player.getUniqueId());
             plugin.getLogger().log(Level.INFO, "[Online] Player " + ign + "(" + address + ") has just voted on " + service + "!");
             return;
         }
@@ -86,7 +87,30 @@ public class PlayerVoteListener implements Listener {
 
         incrementVoteParty();
         addToken(ign);
+        setLastVoted(ign);
         plugin.getLogger().log(Level.INFO, "[Offline] Player " + ign + "(" + address + ") has just voted on " + service + "!");
+    }
+
+    private void setLastVoted(String ign) {
+        UUID uuid = plugin.getUserCache().getApi().getUUID(ign);
+        if (uuid == null) {
+            return;
+        }
+
+        setLastVoted(uuid);
+    }
+
+    private void setLastVoted(UUID uuid) {
+        plugin.getSql().getResultAsync("SELECT * FROM `lastVoted` WHERE `uuid` = '" + uuid + "'", new FindResultCallback() {
+            @Override
+            public void onQueryDone(ResultSet result) throws SQLException {
+                if (result.next()) {
+                    plugin.getSql().executeStatementAsync("UPDATE `lastVoted` SET `lastVoted`='" + System.currentTimeMillis() + "' WHERE `uuid` = '" + uuid + "'");
+                } else {
+                    plugin.getSql().executeStatementAsync("INSERT INTO `lastVoted` (`id`, `uuid`, `lastVoted`) VALUES (NULL, '" + uuid + "', '" + System.currentTimeMillis() + "')");
+                }
+            }
+        });
     }
 
     private void incrementVoteParty() {
