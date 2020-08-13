@@ -87,6 +87,7 @@ voteShop:
   invSize: 27
   invName: '&e&lVote Shop'
   fill: true
+  balanceItemSlot: 22 # Set to -1 to not have the balance item display
   fillItem:
     item: STAINED_GLASS_PANE
     data: 15
