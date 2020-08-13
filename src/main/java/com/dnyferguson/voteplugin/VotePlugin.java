@@ -5,6 +5,7 @@ import com.dnyferguson.voteplugin.commands.FakeVoteCommand;
 import com.dnyferguson.voteplugin.commands.VoteCommand;
 import com.dnyferguson.voteplugin.commands.VotePartyCommand;
 import com.dnyferguson.voteplugin.hooks.VotePluginExpansion;
+import com.dnyferguson.voteplugin.listeners.LoginListener;
 import com.dnyferguson.voteplugin.listeners.MenuInteractListener;
 import com.dnyferguson.voteplugin.listeners.PlayerVoteListener;
 import com.dnyferguson.voteplugin.mysql.FindResultCallback;
@@ -67,6 +68,7 @@ public final class VotePlugin extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerVoteListener(this), this);
         pm.registerEvents(new MenuInteractListener(this), this);
+        pm.registerEvents(new LoginListener(this), this);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
             new VotePluginExpansion(this).register();
@@ -77,7 +79,9 @@ public final class VotePlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        votePartyHandler.saveConfig(false);
+        if (votePartyHandler != null) {
+            votePartyHandler.saveConfig(false);
+        }
         if (sql != null) {
             sql.close();
         }
