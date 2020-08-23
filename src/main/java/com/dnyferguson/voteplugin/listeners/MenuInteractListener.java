@@ -67,7 +67,7 @@ public class MenuInteractListener implements Listener {
                 return;
             }
 
-            int newBalance = cost - userTokens;
+            int newBalance = userTokens - cost;
             plugin.getVoteTokens().put(player.getUniqueId(), newBalance);
 
             for (String command : shopItem.getCommands()) {
