@@ -31,7 +31,6 @@ import java.util.*;
 import java.util.logging.Level;
 
 public final class VotePlugin extends JavaPlugin {
-    // just a test
     private MySQL sql;
     private VotePartyHandler votePartyHandler;
     private MomentoUserCache userCache;
