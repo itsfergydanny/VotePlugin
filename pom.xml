@@ -91,7 +91,7 @@
             <artifactId>votifier</artifactId>
             <version>1.9</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/votifier-1.9.jar</systemPath>
+            <systemPath>${project.basedir}/libs/nuvotifier.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

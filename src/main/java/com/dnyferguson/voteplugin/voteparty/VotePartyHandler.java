@@ -7,7 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class VotePartyHandler {
     private VotePlugin plugin;
@@ -91,10 +94,46 @@ public class VotePartyHandler {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
                 }
 
+                Set<String> ipsRewarded = new HashSet<>();
+                Set<String> ignsRewarded = new HashSet<>();
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    for (String cmd : perPlayerCommands) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()));
-                    }
+                    String ign = player.getName();
+                    String uuid = player.getUniqueId().toString();
+
+                    try {
+                        String ip = Objects.requireNonNull(player.getAddress()).getAddress().toString();
+
+                        if (ipsRewarded.contains(ip)) {
+                            if (!ignsRewarded.contains(ign)) {
+                                player.sendMessage(Chat.format("&cAn account on your IP has already received the voteparty reward. To set which account receives" +
+                                        " the rewards, please use &f/vpmain &con the account."));
+                            }
+                            continue;
+                        }
+
+                        if (plugin.getVotepartyMainAccounts().containsKey(ip)) {
+                            MainAccount main = plugin.getVotepartyMainAccounts().get(ip);
+                            ign = main.getIgn();
+                            uuid = main.getUuid().toString();
+                            for (String cmd : perPlayerCommands) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", ign).replace("%player_uuid%", uuid));
+                            }
+                            ipsRewarded.add(ip);
+                            ignsRewarded.add(ign);
+                            if (!player.getName().equals(ign)) {
+                                player.sendMessage(Chat.format("&cAn account on your IP has already received the voteparty reward. To set which account receives" +
+                                        " the rewards, please use &f/vpmain &con the account."));
+                            }
+                            continue;
+                        }
+
+                        for (String cmd : perPlayerCommands) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", ign).replace("%player_uuid%", uuid));
+                        }
+
+                        ipsRewarded.add(ip);
+                        ignsRewarded.add(ign);
+                    } catch (Exception ignore) {}
                 }
 
                 for (Player player : Bukkit.getOnlinePlayers()) {

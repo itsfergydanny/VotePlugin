@@ -9,3 +9,5 @@ commands:
     aliases: ['vp']
   fakevote:
   voteshop:
+  vpmain:
+    aliases: ['votepartymain', 'votemain']

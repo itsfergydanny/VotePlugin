@@ -1,9 +1,7 @@
 package com.dnyferguson.voteplugin;
 
 import com.dnyferguson.momentousercache.MomentoUserCache;
-import com.dnyferguson.voteplugin.commands.FakeVoteCommand;
-import com.dnyferguson.voteplugin.commands.VoteCommand;
-import com.dnyferguson.voteplugin.commands.VotePartyCommand;
+import com.dnyferguson.voteplugin.commands.*;
 import com.dnyferguson.voteplugin.hooks.VotePluginExpansion;
 import com.dnyferguson.voteplugin.listeners.LoginListener;
 import com.dnyferguson.voteplugin.listeners.MenuInteractListener;
@@ -13,10 +11,10 @@ import com.dnyferguson.voteplugin.mysql.MySQL;
 import com.dnyferguson.voteplugin.tasks.CheckLastVotedTask;
 import com.dnyferguson.voteplugin.utils.Chat;
 import com.dnyferguson.voteplugin.utils.Item;
+import com.dnyferguson.voteplugin.voteparty.MainAccount;
 import com.dnyferguson.voteplugin.voteparty.VotePartyHandler;
 import com.dnyferguson.voteplugin.voteshop.Shop;
 import com.dnyferguson.voteplugin.voteshop.ShopItem;
-import com.dnyferguson.voteplugin.commands.VoteShopCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -27,15 +25,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public final class VotePlugin extends JavaPlugin {
     private MySQL sql;
     private VotePartyHandler votePartyHandler;
     private MomentoUserCache userCache;
-    private Map<UUID, Integer> voteTokens = new HashMap<>();
-    private Map<String, ShopItem> shopItems = new HashMap<>();
+    private final Map<UUID, Integer> voteTokens = new HashMap<>();
+    private final Map<String, ShopItem> shopItems = new HashMap<>();
+    private final Map<String, MainAccount> votepartyMainAccounts = new HashMap<>();
     private Shop shop;
 
     @Override
@@ -52,11 +54,26 @@ public final class VotePlugin extends JavaPlugin {
             }
         });
 
+        sql.getResultAsync("SELECT * FROM `votepartyMainAccounts`", new FindResultCallback() {
+            @Override
+            public void onQueryDone(ResultSet result) throws SQLException {
+                while (result.next()) {
+                    try {
+                        String ip = result.getString("ip");
+                        UUID uuid = UUID.fromString(result.getString("uuid"));
+                        String ign = result.getString("ign");
+                        votepartyMainAccounts.put(ip, new MainAccount(uuid, ign));
+                    } catch (Exception ignore) {}
+                }
+            }
+        });
+
         userCache = (MomentoUserCache) Bukkit.getServer().getPluginManager().getPlugin("MomentoUserCache");
 
         if (getConfig().getBoolean("voteParty.enabled")) {
             votePartyHandler = new VotePartyHandler(this);
             getCommand("voteparty").setExecutor(new VotePartyCommand(this));
+            getCommand("vpmain").setExecutor(new VPMainCommand(this));
         }
 
         getCommand("vote").setExecutor(new VoteCommand(this));
@@ -157,5 +174,9 @@ public final class VotePlugin extends JavaPlugin {
 
     public Shop getShop() {
         return shop;
+    }
+
+    public Map<String, MainAccount> getVotepartyMainAccounts() {
+        return votepartyMainAccounts;
     }
 }
