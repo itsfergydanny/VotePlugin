@@ -130,3 +130,6 @@ voteShop:
           - 'use at warp crates'
       commands:
         - 'crate give %player% Rare 1'
+# Keyall settings. This is the individual command that will be ran on each user, excluding alts
+# You may use %keyname%, %player% and %amount% placeholders. The command is: /keyall <keyname> <amount>
+keyall: 'crate give to %player% %keyname% %amount%'

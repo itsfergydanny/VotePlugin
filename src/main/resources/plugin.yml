@@ -11,3 +11,4 @@ commands:
   voteshop:
   vpmain:
     aliases: ['votepartymain', 'votemain']
+  keyall:
