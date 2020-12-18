@@ -36,6 +36,7 @@ public class MySQL {
         executeStatementAsync("CREATE TABLE IF NOT EXISTS `" + db + "`.`tokens` ( `id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `tokens` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
         executeStatementAsync("CREATE TABLE IF NOT EXISTS `" + db + "`.`lastVoted` ( `id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `lastVoted` BIGINT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
         executeStatementAsync("CREATE TABLE IF NOT EXISTS `" + db +"`.`votepartyMainAccounts` ( `ip` VARCHAR(100) NOT NULL , `uuid` VARCHAR(36) NOT NULL , `ign` VARCHAR(16) NOT NULL , UNIQUE (`ip`)) ENGINE = InnoDB;");
+        executeStatementAsync("CREATE TABLE IF NOT EXISTS `" + db + "`.`raffle_entries` ( `id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `username` VARCHAR(16) NOT NULL , `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
     public void getResultAsync(String stmt, FindResultCallback callback) {

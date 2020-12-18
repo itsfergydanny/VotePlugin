@@ -79,6 +79,9 @@ public final class VotePlugin extends JavaPlugin {
         getCommand("vote").setExecutor(new VoteCommand(this));
         getCommand("fakevote").setExecutor(new FakeVoteCommand());
         getCommand("keyall").setExecutor(new KeyAllCommand(this));
+        getCommand("raffle").setExecutor(new RaffleCommand(this));
+        getCommand("rafflereset").setExecutor(new RaffleResetCommand(this));
+        getCommand("addraffleentry").setExecutor(new AddRaffleEntryCommand(this));
 
         loadShop();
         getCommand("voteshop").setExecutor(new VoteShopCommand(this));

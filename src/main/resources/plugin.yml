@@ -12,3 +12,6 @@ commands:
   vpmain:
     aliases: ['votepartymain', 'votemain']
   keyall:
+  raffle:
+  rafflereset:
+  addraffleentry:

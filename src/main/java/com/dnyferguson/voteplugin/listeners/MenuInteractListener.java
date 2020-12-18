@@ -36,7 +36,7 @@ public class MenuInteractListener implements Listener {
 
         Player player = (Player) e.getWhoClicked();
 
-        String invName = e.getInventory().getName();
+        String invName = e.getView().getTitle();
         if (!inventoriesToHandle.contains(invName)) {
             return;
         }
