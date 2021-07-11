@@ -3,7 +3,6 @@ version: ${project.version}
 main: com.dnyferguson.voteplugin.VotePlugin
 depend: [MomentoUserCache]
 softdepend: [PlaceholderAPI]
-api-version: 1.12
 commands:
   vote:
   voteparty:
