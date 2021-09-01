@@ -111,11 +111,18 @@ public final class VotePlugin extends JavaPlugin {
     private void loadShop() {
         FileConfiguration config = getConfig();
 
+        Material fillMaterial;
+        try {
+            fillMaterial = Material.valueOf(config.getString("voteShop.fillItem.item"));
+        } catch (Exception ignore) {
+            fillMaterial = Material.BLACK_STAINED_GLASS_PANE;
+        }
+
         // load shop
         try {
             this.shop = new Shop(config.getInt("voteShop.invSize"), Chat.format(config.getString("voteShop.invName")),
                     config.getBoolean("voteShop.fill"), Item.createGuiItem(config.getString("voteShop.fillItem.name"), new ArrayList<>(),
-                    Material.valueOf(config.getString("voteShop.fillItem.item")), config.getInt("voteShop.fillItem.amount"),
+                    fillMaterial, config.getInt("voteShop.fillItem.amount"),
                     config.getInt("voteShop.fillItem.data")));
         } catch (Exception ex) {
             ex.printStackTrace();
