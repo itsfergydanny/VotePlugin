@@ -19,9 +19,11 @@ import java.util.List;
 
 public class RaffleResetCommand implements CommandExecutor {
     private final VotePlugin plugin;
+    private String webhookUrl;
 
     public RaffleResetCommand(VotePlugin plugin) {
         this.plugin = plugin;
+        webhookUrl = plugin.getConfig().getString("discord-webhook");
     }
 
     @Override
@@ -49,7 +51,7 @@ public class RaffleResetCommand implements CommandExecutor {
                     plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
                         @Override
                         public void run() {
-                            DiscordWebhook webhook = new DiscordWebhook("https://discord.com/api/webhooks/789436467809353728/B_rCIIZZbNkSDZwKN52_TOyDbG_ASLVmaUZ-7TU1fjtapWvCWJXgu7KQIe5MEsLc2Oj0");
+                            DiscordWebhook webhook = new DiscordWebhook(webhookUrl);
                             try {
                                 webhook.addEmbed(new DiscordWebhook.EmbedObject()
                                         .setTitle(":tickets: Daily Raffle Winner :tickets:")
@@ -71,7 +73,7 @@ public class RaffleResetCommand implements CommandExecutor {
                 plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
                     @Override
                     public void run() {
-                        DiscordWebhook webhook = new DiscordWebhook("https://discord.com/api/webhooks/789436467809353728/B_rCIIZZbNkSDZwKN52_TOyDbG_ASLVmaUZ-7TU1fjtapWvCWJXgu7KQIe5MEsLc2Oj0");
+                        DiscordWebhook webhook = new DiscordWebhook(webhookUrl);
                         try {
                             webhook.addEmbed(new DiscordWebhook.EmbedObject()
                                     .setTitle(":tickets: Daily Raffle Winner :tickets:")
@@ -79,7 +81,8 @@ public class RaffleResetCommand implements CommandExecutor {
                                     .setColor(Color.GREEN)
                                     .addField("Winner", "" + winner.getIgn(), true)
                                     .addField("Prize", "$10 Store Coupon (/coupon)", true)
-                                    .addField("Next Raffle", "in 24 hours.", false));
+                                    .addField("Next Raffle", "in 24 hours.", false)
+                                    .addField("Total Entries", entries.size() + "", false));
                             webhook.execute(); //Handle exception
                         } catch (IOException e) {
                             e.printStackTrace();
